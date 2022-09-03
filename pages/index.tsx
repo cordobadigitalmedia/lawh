@@ -1,7 +1,24 @@
+import React, { useState, useEffect, useRef } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
+import { MediaText } from "../components/MediaText";
+import { PageNav } from "../components/PageNav";
+import hizbalbahr from "../data/hizbalbahar.json";
 
 const Home: NextPage = () => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const updatePage = (no: number) => {
+    setCurrentPage(no);
+  };
+  const setSrcFromPage = (no: number) => {
+    let src = "";
+    if (no < 9) {
+      src = `0${no + 1}.mp3`;
+    } else {
+      src = `${no + 1}.mp3`;
+    }
+    return src;
+  };
   return (
     <div>
       <Head>
@@ -9,7 +26,19 @@ const Home: NextPage = () => {
         <link rel="icon" href="/lawh.ico" />
       </Head>
       <div className="flex flex-col bg-[#E9D8BE] h-screen p-2">
-        <div className="flex bg-[url('/lawh.png')] bg-contain bg-no-repeat bg-center h-full"></div>
+        <div className="flex bg-[url('/lawh.png')] bg-scroll bg-[length:auto_650px] largemobile:bg-[length:auto_800px] bg-no-repeat bg-center h-full place-content-center">
+          <div className="flex flex-col w-80 p-5 items-center justify-center">
+            <div className="text-white text-3xl">{hizbalbahr.title}</div>
+            <MediaText
+              text={hizbalbahr.text[currentPage]}
+              audioSrc={setSrcFromPage(currentPage)}
+            />
+            <PageNav
+              setPageNo={updatePage}
+              totalPages={hizbalbahr.text.length}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
