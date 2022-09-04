@@ -26,14 +26,14 @@ const Home: NextPage = () => {
         <link rel="icon" href="/lawh.ico" />
       </Head>
       <div className="flex flex-col bg-[#E9D8BE] h-screen p-2">
-        <div className="flex bg-[url('/lawh.png')] bg-scroll bg-[length:auto_650px] largemobile:bg-[length:auto_800px] bg-no-repeat bg-center h-full place-content-center">
+        <div className="flex bg-[url('/lawh.png')] bg-scroll bg-contain largemobile:bg-[length:auto_800px] bg-no-repeat bg-center h-full place-content-center">
           <div className="flex flex-col w-80 p-5 items-center justify-center">
-            <div className="text-white text-3xl">{hizbalbahr.title}</div>
+            <div className="text-white text-3xl font-naskh">
+              {hizbalbahr.title}
+            </div>
             <MediaText
               text={hizbalbahr.text[currentPage]}
               audioSrc={setSrcFromPage(currentPage)}
-            />
-            <PageNav
               setPageNo={updatePage}
               totalPages={hizbalbahr.text.length}
             />

@@ -19,7 +19,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["Noto Naskh Arabic"],
+        naskh: ["Noto Naskh Arabic"],
       },
     },
   },
