@@ -13,19 +13,20 @@ interface TextOptions {
   translation: string;
 }
 
-const audioRoot =
-  "https://hizb-al-bahr.s3.eu-central-1.amazonaws.com/Hizb_Al+Bahr_";
+const audioRoot = ".s3.eu-central-1.amazonaws.com/";
 
 export function MediaText({
   text,
   audioSrc = "01.mp3",
   totalPages = 0,
   setPageNo,
+  path,
 }: {
   text: TextOptions;
   audioSrc?: string;
   totalPages: number;
   setPageNo: Function;
+  path: string;
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showTranslation, setShowTranslation] = useState(false);
@@ -35,12 +36,14 @@ export function MediaText({
   const intervalRef = useRef<NodeJS.Timer>();
   const audioRef = useRef<HTMLAudioElement | undefined>(
     typeof Audio !== "undefined"
-      ? new Audio(`${audioRoot}${audioSrc}`)
+      ? new Audio(`https://${path}${audioRoot}${path}_${audioSrc}`)
       : undefined
   );
   useEffect(() => {
     audioRef.current?.load();
-    audioRef.current = new Audio(`${audioRoot}${audioSrc}`);
+    audioRef.current = new Audio(
+      `https://${path}${audioRoot}${path}_${audioSrc}`
+    );
     if (isPlaying) {
       audioRef.current?.play();
       startTimer();
