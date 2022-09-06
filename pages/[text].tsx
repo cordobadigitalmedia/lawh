@@ -35,7 +35,7 @@ const Page: React.FC<HomeProps> = (page: HomeProps) => {
         <link rel="icon" href="/lawh.ico" />
       </Head>
       {page && "page" in page && text && (
-        <div className="flex flex-col bg-[#E9D8BE] h-screen p-2">
+        <div className="flex flex-col bg-slate-300 h-screen p-2">
           <div className="flex bg-[url('/lawh.png')] bg-scroll bg-contain bg-no-repeat bg-center h-full place-content-center">
             <div className="flex flex-col w-[300px] largemobile:w-[22rem] desktop:w-[300px] p-5 items-center justify-center">
               <div className="text-white text-3xl font-naskh">
