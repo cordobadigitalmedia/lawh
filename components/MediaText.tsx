@@ -10,7 +10,9 @@ import {
 
 interface TextOptions {
   main: string;
-  translation: string;
+  none?: string;
+  eng?: string;
+  fre?: string;
 }
 
 const audioRoot = ".s3.eu-central-1.amazonaws.com/";
@@ -21,12 +23,14 @@ export function MediaText({
   totalPages = 0,
   setPageNo,
   path,
+  translation,
 }: {
   text: TextOptions;
   audioSrc?: string;
   totalPages: number;
   setPageNo: Function;
   path: string;
+  translation: "none" | "eng" | "fre";
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showTranslation, setShowTranslation] = useState(false);
@@ -89,7 +93,7 @@ export function MediaText({
             showTranslation ? `text-xl` : `text-2xl font-naskh`
           } leading-relaxed text-center`}
         >
-          {showTranslation ? text.translation : text.main}
+          {showTranslation ? text[translation] : text.main}
         </div>
       </div>
       <div className="block group-hover:hidden group-active:hidden text-slate-300 flex flex-col items-center">
@@ -100,19 +104,21 @@ export function MediaText({
           <button
             type="button"
             className="bg-white text-slate-900 dark:bg-slate-100 dark:text-slate-700 m-2 flex-none w-10 h-10 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"
-            aria-label="Show Translation"
+            aria-label="Previous Page"
             onClick={() => decreasePage()}
           >
             <ArrowLeftIcon className="h-6 w-6 cursor-pointer text-black" />
           </button>
-          <button
-            type="button"
-            className="bg-white text-slate-900 dark:bg-slate-100 dark:text-slate-700 m-2 flex-none w-10 h-10 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"
-            aria-label="Show Translation"
-            onClick={() => setShowTranslation(!showTranslation)}
-          >
-            <LanguageIcon className="h-6 w-6 cursor-pointer text-black" />
-          </button>
+          {translation !== "none" && (
+            <button
+              type="button"
+              className="bg-white text-slate-900 dark:bg-slate-100 dark:text-slate-700 m-2 flex-none w-10 h-10 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"
+              aria-label="Show Translation"
+              onClick={() => setShowTranslation(!showTranslation)}
+            >
+              <LanguageIcon className="h-6 w-6 cursor-pointer text-black" />
+            </button>
+          )}
           <button
             type="button"
             className="bg-white text-slate-900 dark:bg-slate-100 dark:text-slate-700 m-2 flex-none w-10 h-10 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"

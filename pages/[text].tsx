@@ -8,7 +8,7 @@ interface ParamsOptions {
 }
 
 interface HomeProps {
-  page: { title: string; text: [] };
+  page: { title: string; translation: "none" | "eng" | "fre"; text: [] };
 }
 
 const Page: React.FC<HomeProps> = (page: HomeProps) => {
@@ -47,6 +47,7 @@ const Page: React.FC<HomeProps> = (page: HomeProps) => {
                 setPageNo={updatePage}
                 totalPages={pageData.text.length}
                 path={text.toString()}
+                translation={pageData.translation}
               />
             </div>
           </div>
@@ -58,7 +59,10 @@ const Page: React.FC<HomeProps> = (page: HomeProps) => {
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { text: "hizbalbahar" } }],
+    paths: [
+      { params: { text: "hizbalbahar" } },
+      { params: { text: "alwadhifa" } },
+    ],
     fallback: false, // can also be true or 'blocking'
   };
 }
